@@ -15,6 +15,18 @@ class DataBuku extends CI_Controller{
         }
     }
     
+    public function index()
+    {
+        $send = array('id' => "");
+        $data['title'] = "Data Buku";
+        $buku = json_decode($this->client->simple_get(API_BUKU, $send));
+        $data['buku'] = $buku->buku;
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('data_buku',$data);
+        $this->load->view('templates/footer');
+    }
 
     public function _rules(){
         $this->form_validation->set_rules('nama_buku', 'Nama Buku', 'required');
