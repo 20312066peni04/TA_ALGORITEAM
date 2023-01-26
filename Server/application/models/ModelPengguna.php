@@ -12,6 +12,11 @@ class ModelPengguna extends CI_Model {
       }
       return $query->result();
     }
+
+    function save_data($data)
+    {
+      return $this->db->insert("pengguna", $data);
+    }
     
 }
 
