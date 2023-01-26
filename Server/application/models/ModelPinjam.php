@@ -22,6 +22,11 @@ class ModelPinjam extends CI_Model {
     {
       return $this->db->insert("pinjam", $data);
     }
+
+    function update_data($data, $id)
+    {
+        return $this->db->update("pinjam", $data, array('id' => $id));
+    }
     
 }
 
