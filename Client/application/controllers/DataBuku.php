@@ -28,6 +28,15 @@ class DataBuku extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function tambah_data()
+    {
+        $send = array('id' => "");
+        $data['title'] = "Tambah Data Buku";
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('tambah_buku',$data);
+        $this->load->view('templates/footer');
+    }
     public function _rules(){
         $this->form_validation->set_rules('nama_buku', 'Nama Buku', 'required');
     }
