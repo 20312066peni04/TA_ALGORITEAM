@@ -11,6 +11,11 @@ class DataPinjam extends Server {
         parent::__construct();
         $this->load->model("ModelPinjam","model",TRUE);
     }
+
+    function service_get()
+    {
+        $this->response(array("pinjam" => $this->model->get_data($this->get("id"))),200);
+    }
     
     function service_post()
     {
