@@ -17,6 +17,11 @@ class ModelPengguna extends CI_Model {
     {
       return $this->db->insert("pengguna", $data);
     }
+
+    function update_data($data, $id)
+    {
+        return $this->db->update("pengguna", $data, array('id' => $id));
+    }
     
 }
 
