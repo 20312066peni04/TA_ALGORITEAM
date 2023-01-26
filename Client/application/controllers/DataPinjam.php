@@ -27,6 +27,14 @@ class DataPinjam extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function tambah_data()
+    {
+        $data['title'] = "Tambah Data Peminjam";
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('tambah_peminjam',$data);
+        $this->load->view('templates/footer');
+    }
     public function _rules(){
         $this->form_validation->set_rules('id_buku', 'ID Buku', 'required');
         $this->form_validation->set_rules('id_siswa', 'ID Siswa/Siswi', 'required');
