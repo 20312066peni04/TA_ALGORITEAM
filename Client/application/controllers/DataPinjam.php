@@ -15,6 +15,17 @@ class DataPinjam extends CI_Controller{
         }
     }
     
+    public function index()
+    {
+        $data['title'] = "Data Pengguna";
+        $pinjam = json_decode($this->client->simple_get(API_PINJAM . 'Update'));
+        $data['pinjam'] = $pinjam->pinjam;
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('data_pinjam',$data);
+        $this->load->view('templates/footer');
+    }
 
     public function _rules(){
         $this->form_validation->set_rules('id_buku', 'ID Buku', 'required');
