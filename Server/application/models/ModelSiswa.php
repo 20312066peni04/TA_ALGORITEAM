@@ -17,6 +17,11 @@ class ModelSiswa extends CI_Model {
     {
       return $this->db->insert("siswa", $data);
     }
+
+    function update_data($data, $id)
+    {
+        return $this->db->update("siswa", $data, array('id' => $id));
+    }
     
 }
 
