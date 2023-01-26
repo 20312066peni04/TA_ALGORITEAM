@@ -14,6 +14,11 @@ class ModelBuku extends CI_Model {
     {
       return $this->db->insert("buku", $data);
     }
+
+    function update_data($data, $id)
+    {
+        return $this->db->update("buku", $data, array('id' => $id));
+    }
     
 }
 
