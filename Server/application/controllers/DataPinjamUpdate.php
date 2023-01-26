@@ -11,4 +11,16 @@ class DataPinjamUpdate extends Server {
         parent::__construct();
         $this->load->model("ModelPinjam","model",TRUE);
     }
+    
+    function service_post()
+    {
+        $data = array(
+            "id_buku" => $this->post("id_buku"),
+            "id_siswa" => $this->post("id_siswa"),
+            "id_pengguna" => $this->post("id_pengguna"),
+            "status" => $this->post("status")
+        );
+
+        $this->response(array("pesan" => $this->model->update_data($data, $this->post("id"))),200);
+    }
 }
