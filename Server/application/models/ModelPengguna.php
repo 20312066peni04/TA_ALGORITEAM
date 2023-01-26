@@ -22,6 +22,22 @@ class ModelPengguna extends CI_Model {
     {
         return $this->db->update("pengguna", $data, array('id' => $id));
     }
+
+    function get_login($data)
+    {
+        $this->db->select("*");
+        $this->db->from("pengguna");
+        $this->db->where($data);
+        $data = $this->db->get()->result();
+        $login = sizeof($data);
+
+        if ($login > 0){
+          $query = array('login' => $login, 'id' => $data[0]->id, 'nama_pengguna' => $data[0]->nama_pengguna);
+        } else {
+          $query = array('login' => $login);
+        }
+        return $query;
+    }
     
 }
 
