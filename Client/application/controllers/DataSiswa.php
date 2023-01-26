@@ -15,6 +15,17 @@ class DataSiswa extends CI_Controller{
         }
     }
     
+    public function index()
+    {
+        $siswa = json_decode($this->client->simple_get(API_SISWA, array('id' => "")));
+        $data['title'] = "Data Siswa";
+        $data['siswa'] = $siswa->siswa;
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('data_siswa',$data);
+        $this->load->view('templates/footer');
+    }
 
     public function _rules(){
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
