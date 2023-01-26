@@ -12,4 +12,14 @@ class DataSiswaUpdate extends Server {
         $this->load->model("ModelSiswa","model",TRUE);
     }
     
+    function service_post()
+    {
+        $data = array(
+            "nis" => $this->post("nis"),
+            "nama_siswa" => $this->post("nama_siswa"),
+            "hapus" => $this->post("hapus")
+        );
+
+        $this->response(array("pesan" => $this->model->update_data($data, $this->post("id"))),200);
+    }
 }
