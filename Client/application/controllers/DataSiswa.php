@@ -27,6 +27,14 @@ class DataSiswa extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function tambah_data()
+    {
+        $data['title'] = "Tambah Data Siswa";
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('tambah_siswa',$data);
+        $this->load->view('templates/footer');
+    }
     public function _rules(){
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('nis', 'NIS', 'required');
