@@ -15,6 +15,18 @@ class DataPengguna extends CI_Controller{
         }
     }
     
+    public function index()
+    {
+        $send = array('id' => "");
+        $data['title'] = "Data Pengguna";
+        $pengguna = json_decode($this->client->simple_get(API_PENGGUNA, $send));
+        $data['pengguna'] = $pengguna->pengguna;
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('data_pengguna',$data);
+        $this->load->view('templates/footer');
+    }
 
     public function _rules(){
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
