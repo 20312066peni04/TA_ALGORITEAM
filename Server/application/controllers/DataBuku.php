@@ -11,6 +11,13 @@ class DataBuku extends Server {
         parent::__construct();
         $this->load->model("ModelBuku","model",TRUE);
     }
+
+    function service_get()
+    {
+        $hasil = $this->model->get_data($this->get("id"));
+        $number = sizeof($hasil);
+        $this->response(array("buku" => $hasil, "buku_jumlah" => $number),200);
+    }
     
     function service_post()
     {
