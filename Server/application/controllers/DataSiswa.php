@@ -11,6 +11,13 @@ class DataSiswa extends Server {
         parent::__construct();
         $this->load->model("ModelSiswa","model",TRUE);
     }
+
+    function service_get()
+    {
+        $hasil = $this->model->get_data($this->input->get("id"));
+        $number = sizeof($hasil);
+        $this->response(array("siswa" => $hasil, "siswa_jumlah" => $number),200);
+    }
     
     function service_post()
     {
