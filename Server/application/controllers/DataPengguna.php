@@ -10,6 +10,13 @@ class DataPengguna extends Server {
         parent::__construct();
         $this->load->model("ModelPengguna","model",TRUE);
     }
+
+    function service_get()
+    {
+        $hasil = $this->model->get_data($this->input->get("id"));
+        $number = sizeof($hasil);
+        $this->response(array("pengguna" => $hasil, "pengguna_jumlah" => $number),200);
+    }
     
     function service_post()
     {
