@@ -12,6 +12,11 @@ class ModelPinjam extends CI_Model {
       }
       return $query->result();
     }
+
+    function get_data_()
+    {
+      return $this->db->query("SELECT pinjam.id, siswa.nama_siswa, pengguna.nama_pengguna, buku.nama_buku FROM pinjam INNER JOIN siswa ON siswa.id = pinjam.id_siswa INNER JOIN pengguna ON pengguna.id = pinjam.id_pengguna INNER JOIN buku ON buku.id = pinjam.id_buku WHERE pinjam.status = '1' ORDER BY pinjam.created ASC")->result();
+    }
     
 }
 
