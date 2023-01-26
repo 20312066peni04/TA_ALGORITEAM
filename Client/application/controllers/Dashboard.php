@@ -14,6 +14,28 @@ class Dashboard extends CI_Controller{
 			redirect("Login");
         }
     }
+
+    public function index()
+    {
+        $data['title'] = "Dashboard";
+
+        $buku = json_decode($this->client->simple_get(API_BUKU));
+        $pengguna = json_decode($this->client->simple_get(API_PENGGUNA));
+        // $pinjam = json_decode($this->client->simple_get(API_PINJAM));
+        $siswa = json_decode($this->client->simple_get(API_SISWA));
+
+        $data['buku'] = $buku->buku_jumlah;
+        $data['pengguna'] = $pengguna->pengguna_jumlah;
+        $data['pinjam'] = 0;
+        $data['siswa'] = $siswa->siswa_jumlah;
+
+        $this->load->view('templates/header',$data);
+        // $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('dashboard',$data);
+        // $this->load->view('admin/dashboard',$data);
+        $this->load->view('templates/footer');
+    }
 }
 
 ?>
