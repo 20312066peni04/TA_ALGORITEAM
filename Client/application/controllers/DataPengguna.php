@@ -73,6 +73,20 @@ class DataPengguna extends CI_Controller{
             $this->index();
         }
     }
+
+    public function update_data($id)
+    {
+        $send = array('id' => $id);
+        $response = json_decode($this->client->simple_get(API_PENGGUNA, $send));
+        $data['pengguna'] = $response->pengguna;
+        $data['id'] = $id;
+
+        $data['title'] = "Update Data Pengguna " . $response->pengguna[0]->nama_pengguna;
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('update_pengguna',$data);
+        $this->load->view('templates/footer');
+    }
     public function delete_data($id)
     {
         $send = array('id' => $id);
