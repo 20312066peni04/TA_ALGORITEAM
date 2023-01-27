@@ -36,6 +36,33 @@ class DataSiswa extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function tambah_data_aksi()
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE){
+            $this->tambah_data();
+        } else {
+            $response = json_decode($this->client->simple_post(API_SISWA, array('nis' => $this->input->post('nis'), 'nama_siswa' => $this->input->post('nama_lengkap'), 'hapus'=>'1')));
+            if ($response->pesan){
+                $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data berhasil ditambahkan</strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            } else {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data gagal ditambahkan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            }
+
+            $this->index();
+        }
+    }
     public function delete_data($id)
     {
         $send = array('id' => $id);
