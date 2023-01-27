@@ -100,6 +100,54 @@ class DataBuku extends CI_Controller{
         $this->load->view('update_buku',$data);
         $this->load->view('templates/footer');
     }
+
+    public function update_data_aksi()
+    {
+        $this->_rules();
+        if ($this->form_validation->run() == FALSE){
+            $this->index();
+        } else {
+            $photo = $_FILES['photo']['name'];
+
+            if($photo){
+                $config['upload_path'] = './ext/photo';
+                $config['allowed_types'] = 'jpg|jpeg|png|tiff';
+                $this->load->library('upload', $config);
+                if($this->upload->do_upload('photo')){
+                    $photo = $this->upload->data('file_name');
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+
+            $data = array(
+                'id'        => $this->input->post('id'),
+                'nama_buku' => $this->input->post('nama_buku'),
+                'gambar'    => $photo,
+                'hapus'     => '1'
+            );
+
+            $response = json_decode($this->client->simple_post(API_BUKU . 'Update', $data));
+            if ($response->pesan){
+                $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data berhasil diUpdate</strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            } else {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data gagal diUpdate</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            }
+
+            $this->index();
+        }
+    }
+
     public function delete_data($id)
     {
         $send = array('id' => $id);
