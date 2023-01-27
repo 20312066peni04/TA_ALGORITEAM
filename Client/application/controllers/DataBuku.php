@@ -86,6 +86,20 @@ class DataBuku extends CI_Controller{
             $this->index();
         }
     }
+
+    public function update_data($id)
+    {
+        $send = array('id' => $id);
+        $response = json_decode($this->client->simple_get(API_BUKU, $send));
+        $data['buku'] = $response->buku;
+        $data['id'] = $id;
+
+        $data['title'] = "Update Data Buku " . $response->buku[0]->nama_buku;
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('update_buku',$data);
+        $this->load->view('templates/footer');
+    }
     public function delete_data($id)
     {
         $send = array('id' => $id);
