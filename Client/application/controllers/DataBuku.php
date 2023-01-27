@@ -38,6 +38,54 @@ class DataBuku extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function tambah_data_aksi()
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE){
+            $this->tambah_data();
+        } else {
+            $photo = $_FILES['photo']['name'];
+
+            if($photo= ''){
+
+            } else {
+                $config['upload_path'] = './ext/buku';
+                $config['allowed_types'] = 'jpg|jpeg|png|tiff';
+                $this->load->library('upload', $config);
+                if(!$this->upload->do_upload('photo')){
+                    echo "Photo Gagal diupload!";
+                } else {
+                    $photo = $this->upload->data('file_name');
+                }
+            }
+
+            $data = array(
+                'nama_buku' => $this->input->post('nama_buku'),
+                'gambar'     => $photo,
+                'hapus'     => '1'
+            );
+
+            $response = json_decode($this->client->simple_post(API_BUKU, $data));
+            if ($response->status){
+                $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data berhasil ditambahkan</strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            } else {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data gagal ditambahkan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>');
+            }
+
+            $this->index();
+        }
+    }
     public function delete_data($id)
     {
         $send = array('id' => $id);
