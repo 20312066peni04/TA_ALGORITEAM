@@ -63,6 +63,19 @@ class DataSiswa extends CI_Controller{
             $this->index();
         }
     }
+
+    public function update_data($id)
+    {
+        $response = json_decode($this->client->simple_get(API_SISWA, array('id' => $id)));
+        $data['siswa'] = $response->siswa;
+        $data['id'] = $id;
+
+        $data['title'] = "Update Data Siswa " . $response->siswa[0]->nama_siswa;
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('update_siswa',$data);
+        $this->load->view('templates/footer');
+    }
     public function delete_data($id)
     {
         $send = array('id' => $id);
